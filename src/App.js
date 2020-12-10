@@ -3,6 +3,7 @@ import React, { useEffect, useReducer } from 'react';
 import { todoReducer } from './Reducers/todoReducer';
 
 import Form from './components/Form';
+import TodoList from './components/TodoList';
 
 const init = () => JSON.parse(localStorage.getItem('todos')) || [];
 
@@ -19,6 +20,15 @@ function App() {
 		payload: newTodo
 	});
 
+	const handleToggle = idTodo => dispatch({
+		type: 'toggle',
+		payload: idTodo
+	});
+
+	const handleDelete = idTodo => dispatch({
+		type: 'delete',
+		payload: idTodo
+	});
 
 	return (
 		<>
@@ -34,7 +44,11 @@ function App() {
 				</div>
 
 				<div className="col-md-7 mt-5 mt-md-0">
-					Todos
+					<TodoList
+						todos={todos}
+						handleToggle={handleToggle}
+						handleDelete={handleDelete}
+					/>
 				</div>
 			</div>
 		</>
