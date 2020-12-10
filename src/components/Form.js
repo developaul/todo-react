@@ -14,14 +14,14 @@ const Form = ({ handleAddTodo }) => {
 
         const newTodo = {
             id: new Date().getTime(),
-            desc: description,
+            desc: description.trim(),
             done: false
         }
 
         handleAddTodo(newTodo);
 
         handleInputReset();
-    }
+    };
 
     return (
         <>

@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
+
+import { todoReducer } from './Reducers/todoReducer';
 
 import Form from './components/Form';
 
+const init = () => JSON.parse(localStorage.getItem('todos')) || [];
+
 function App() {
 
-	const todos = [];
+	const [todos, dispatch] = useReducer(todoReducer, [], init)
 
-	const handleAddTodo = newTodo => {
-		console.log(newTodo);
-	}
+	useEffect(() => {
+		localStorage.setItem('todos', JSON.stringify(todos));
+	}, [todos]);
+
+	const handleAddTodo = newTodo => dispatch({
+		type: 'add',
+		payload: newTodo
+	});
+
 
 	return (
 		<>
